@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Nop.Core
+namespace Nop.Core.Configuration
 {
-    public class Class1
+    public interface ISettings
     {
     }
 }

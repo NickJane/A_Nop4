@@ -1,4 +1,7 @@
-搜索并安装autofac, autofac mvc, autofac webapi2
-
+搜索并安装
+autofac, 
+autofac mvc, 
+autofac webapi2
+RedisExchange
 	
 
