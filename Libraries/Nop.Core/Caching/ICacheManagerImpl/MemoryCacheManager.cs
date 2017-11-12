@@ -4,7 +4,7 @@ using System.Runtime.Caching;
 
 namespace Nop.Core.Caching
 {
-    public class ScdMemoryCacheManager : IScdCacheManager
+    public class MemoryCacheManager : ICacheManager
     {
         public TResult Get<TResult>(ScdCacheKey key)
         {

@@ -26,5 +26,17 @@ namespace Nop.Web.Controllers
 
             return View();
         }
+
+        public ActionResult Server500()
+        {
+            throw new HttpException(500, "服务器内部错误");
+            return View();
+        }
+        public ActionResult Server404()
+        {
+            throw new HttpException(404, "未找到");
+            return View();
+        }
+
     }
 }

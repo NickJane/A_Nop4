@@ -50,6 +50,8 @@
   <ItemGroup>
     <Compile Include="BaseEntity.cs" />
     <Compile Include="DbContextExtensions.cs" />
+    <Compile Include="Domain\Customer\Customer.cs" />
+    <Compile Include="Domain\Site\Language.cs" />
     <Compile Include="EfRepository.cs" />
     <Compile Include="IDbContext.cs" />
     <Compile Include="IRepository.cs" />
@@ -68,7 +70,6 @@
     <None Include="ReadME.md" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Domain\" />
     <Folder Include="Mapping\" />
   </ItemGroup>
   <ItemGroup>

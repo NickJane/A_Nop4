@@ -15,7 +15,7 @@ namespace Nop.Core.Caching
         /// <param name="key">Cache key</param>
         /// <param name="acquire">Function to load item if it's not in the cache yet</param>
         /// <returns>Cached item</returns>
-        public static T Get<T>(this IScdCacheManager cacheManager, ScdCacheKey key, Func<T> acquire)
+        public static T Get<T>(this ICacheManager cacheManager, ScdCacheKey key, Func<T> acquire)
         {
             return Get(cacheManager, key, 60, acquire);
         }
@@ -29,7 +29,7 @@ namespace Nop.Core.Caching
         /// <param name="cacheTime">Cache time in minutes (0 - do not cache)</param>
         /// <param name="acquire">Function to load item if it's not in the cache yet</param>
         /// <returns>Cached item</returns>
-        public static T Get<T>(this IScdCacheManager cacheManager, ScdCacheKey key, double cacheTime, Func<T> acquire)
+        public static T Get<T>(this ICacheManager cacheManager, ScdCacheKey key, double cacheTime, Func<T> acquire)
         {
             if (cacheManager.IsSet(key))
             {

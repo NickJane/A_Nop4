@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Nop.Core.Caching
 {
-    public class ScdPerRequestCacheManager : IScdCacheManager
+    public class PerRequestCacheManager : ICacheManager
     {
         private readonly HttpContextBase _context;
 
@@ -16,7 +16,7 @@ namespace Nop.Core.Caching
         /// Ctor
         /// </summary>
         /// <param name="context">Context</param>
-        public ScdPerRequestCacheManager(HttpContextBase context)
+        public PerRequestCacheManager(HttpContextBase context)
         {
             this._context = context;
         }

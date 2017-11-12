@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Nop.Core.Caching
 {
-    public class ScdRedisCacheManager : IScdCacheManager
+    public class RedisCacheManager : ICacheManager
     {
         private readonly IDatabase _db;
 
@@ -27,7 +27,7 @@ namespace Nop.Core.Caching
 
         #endregion
 
-        public ScdRedisCacheManager()
+        public RedisCacheManager()
         {
             IRedisCacheDatabaseProvider databaseProvider = new RedisCacheDatabaseProvider();
             _db = databaseProvider.GetDatabase();
@@ -73,7 +73,7 @@ namespace Nop.Core.Caching
     }
 
 
-    public class ScdRedisNullCacheManager : IScdCacheManager
+    public class ScdRedisNullCacheManager : ICacheManager
     {
         private readonly IDatabase _db;
 
