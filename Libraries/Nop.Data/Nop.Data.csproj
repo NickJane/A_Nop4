@@ -72,7 +72,7 @@
     <Folder Include="Mapping\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Nop.Core\Nop.Core.csproj">
+    <ProjectReference Include="..\Nop.Core\Nop.Core.csproj">
       <Project>{cb3e73e5-7b4c-41f4-8555-95b2af79356e}</Project>
       <Name>Nop.Core</Name>
     </ProjectReference>

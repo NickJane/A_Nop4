@@ -30,10 +30,9 @@
 	UnitOfWorkFactory.CurrentUnitOfWork.CommitTransation() or RollBack;
 
 	UnitOfWorkFactory.CurrentUnitOfWork在这个静态属性中, 会获取当前的HttpContext.Current对象, 并缓存进去一个IUnitOfWork的实现实例
-	这个实例当然仅仅在这一次http请求中有效.
+	(nopcommerce中Iunitofwork接口注入设置是每次都使用新的, 但是实际上第一次使用就会放入缓存, 感觉和每生命周期使用一个实例差别不大)
 	我们再来看看Class UnitOfWork在初始化中干了什么
-	public UnitOfWork(IDbContext context)
-        {
-            _context = context;
-        }
-	UnitOfWork依赖于IDbContext, 在初始化的时候会从Autofac容器中
+	public UnitOfWork(IDbContext context){ _context = context; }
+	UnitOfWork依赖于IDbContext, 在初始化的时候会从Autofac中获得当前生命周期中的数据库访问对象(IDbContext的设置是InstancePerLifetimeScope)
+	BeginTransation() 开启一个事务并放回一个事务对象. _transacton = _context.Database.BeginTransaction();
+	CommitTransation() 提交事务.
