@@ -8,41 +8,41 @@ using System.Threading.Tasks;
 namespace Nop.Services
 {
       [Serializable]
-    public class WezhanException : Exception
+    public class NopException : Exception
     {
         /// <summary>
-        /// Creates a new <see cref="WezhanException"/> object.
+        /// Creates a new <see cref="NopException"/> object.
         /// </summary>
-        public WezhanException()
+        public NopException()
         {
 
         }
 
         /// <summary>
-        /// Creates a new <see cref="WezhanException"/> object.
+        /// Creates a new <see cref="NopException"/> object.
         /// </summary>
-        public WezhanException(SerializationInfo serializationInfo, StreamingContext context)
+        public NopException(SerializationInfo serializationInfo, StreamingContext context)
             : base(serializationInfo, context)
         {
 
         }
 
         /// <summary>
-        /// Creates a new <see cref="WezhanException"/> object.
+        /// Creates a new <see cref="NopException"/> object.
         /// </summary>
         /// <param name="message">Exception message</param>
-        public WezhanException(string message)
+        public NopException(string message)
             : base(message)
         {
 
         }
 
         /// <summary>
-        /// Creates a new <see cref="WezhanException"/> object.
+        /// Creates a new <see cref="NopException"/> object.
         /// </summary>
         /// <param name="message">Exception message</param>
         /// <param name="innerException">Inner exception</param>
-        public WezhanException(string message, Exception innerException)
+        public NopException(string message, Exception innerException)
             : base(message, innerException)
         {
 

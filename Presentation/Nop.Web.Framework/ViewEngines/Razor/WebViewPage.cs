@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using Nop.Core.Infrastructure;
 using Nop.Services;
 using Nop.Web.Framework.Localization;
+using Nop.Services.Localization;
 
 namespace Nop.Web.Framework.ViewEngines.Razor
 {
@@ -13,7 +14,8 @@ namespace Nop.Web.Framework.ViewEngines.Razor
     public abstract class WebViewPage<TModel> : System.Web.Mvc.WebViewPage<TModel>
     {
         //private ILocalizationService _localizationService;
-        private Localizer _localizer;
+        private Localizer _localizerAdmin;
+        private Localizer _localizerWeb;
         private IWorkContext _workContext;
 
         public override void InitHelpers()
@@ -24,41 +26,72 @@ namespace Nop.Web.Framework.ViewEngines.Razor
         }
 
         /// <summary>
-        /// Get a localized resources
+        /// 后台资源文件输出
         /// </summary>
         public Localizer T
         {
             get
             {
-                if (_localizer == null)
+                if (_localizerAdmin == null)
                 {
-                    
-                    _localizer = (format, args) =>
+
+                    _localizerAdmin = (format, args) =>
                                      {
                                          string resFormat = null;// _localizationService.GetResource(format);
-                                         //if (args == null || args.Length == 0)
-                                         //{
-                                         //    resFormat = LocalizationHelper.GetString(LocalizationResourceType.Admin.ToString(), format,
-                                         //        WorkContext.AdminLanguage.LanguageCulture);
-                                         //}
-                                         //else
-                                         //{
-                                         //    resFormat = LocalizationHelper.GetString(LocalizationResourceType.Admin.ToString(), format,
-                                         //        WorkContext.AdminLanguage.LanguageCulture, args);
-                                         //}
-                                         //if (string.IsNullOrEmpty(resFormat))
-                                         //{
-                                         //    return new Web.Framework.Localization.LocalizedString(format);
-                                         //}
-                                         //return new Web.Framework.Localization.LocalizedString(resFormat);
-
-                                         return new LocalizedString("这是一个webviewPage的自定义委托函数输出");
+                                         if (args == null || args.Length == 0)
+                                         {
+                                             resFormat = LocalizationHelper.GetString(LocalizationDictionaryName.Admin, format,
+                                                 "zh-cn");
+                                         }
+                                         else
+                                         {
+                                             resFormat = LocalizationHelper.GetString(LocalizationDictionaryName.Admin, format,
+                                                 "zh-cn", args);
+                                         }
+                                         if (string.IsNullOrEmpty(resFormat))
+                                         {
+                                             return new Web.Framework.Localization.LocalizedString(format);
+                                         }
+                                         return new Web.Framework.Localization.LocalizedString(resFormat); 
                                      };
                 }
-                return _localizer;
+                return _localizerAdmin;
             }
         }
-        
+        /// <summary>
+        /// 前端资源文件输出
+        /// </summary>
+        public Localizer L
+        {
+            get
+            {
+                if (_localizerWeb == null)
+                {
+
+                    _localizerWeb = (format, args) =>
+                    {
+                        string resFormat = null;// _localizationService.GetResource(format);
+                        if (args == null || args.Length == 0)
+                        {
+                            resFormat = LocalizationHelper.GetString(LocalizationDictionaryName.Web, format,
+                                "zh-cn");
+                        }
+                        else
+                        {
+                            resFormat = LocalizationHelper.GetString(LocalizationDictionaryName.Web, format,
+                                "zh-cn", args);
+                        }
+                        if (string.IsNullOrEmpty(resFormat))
+                        {
+                            return new Web.Framework.Localization.LocalizedString(format);
+                        }
+                        return new Web.Framework.Localization.LocalizedString(resFormat);
+                    };
+                }
+                return _localizerWeb;
+            }
+        }
+
         //nopcommerce
         public override string Layout
         {

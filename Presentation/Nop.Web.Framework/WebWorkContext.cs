@@ -56,7 +56,7 @@ namespace Nop.Web.Framework
         }
         #endregion
 
-        #region private method IsMobile, SaveLanguageToCookie
+        #region 工具方法 IsMobile, SaveLanguageToCookie, GetLanguage
         private string GetCookieName(string cacheKey)
         {
             return "yibu_" + cacheKey;
@@ -87,6 +87,15 @@ namespace Nop.Web.Framework
 
         }
 
+        /// <summary>
+        /// 获得当前用户访问时候的语言, 
+        /// 1 找cookie
+        /// 2 找系统设置的主语言
+        /// 3 找客户当前浏览器的语言
+        /// 4 返回中文
+        /// </summary>
+        /// <param name="cacheKey"></param>
+        /// <returns></returns>
         private Language GetLanguage(string cacheKey)
         {
             if (_httpContext == null || _httpContext.Request == null || _httpContext is FakeHttpContext)
@@ -256,7 +265,14 @@ namespace Nop.Web.Framework
         }
         
 
-        Language IWorkContext.RunTimeLanguage { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        Language IWorkContext.RunTimeLanguage
+        {
+            get
+            {
+
+            }
+            set => throw new NotImplementedException();
+        }
         DeviceMode IWorkContext.RunTimeDeviceMode { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }

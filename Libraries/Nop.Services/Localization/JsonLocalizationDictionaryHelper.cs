@@ -46,17 +46,17 @@ namespace Nop.Services.Localization
             }
             catch (JsonException ex)
             {
-                throw new WezhanException("Can not parse json string. " + ex.Message);
+                throw new NopException("Can not parse json string. " + ex.Message);
             }
 
             var cultureCode = jsonFile.Culture;
             if (string.IsNullOrEmpty(cultureCode))
             {
-                throw new WezhanException("Culture is empty in language json file.");
+                throw new NopException("Culture is empty in language json file.");
             }
             if (string.IsNullOrEmpty(jsonFile.DictionaryName))
             {
-                throw new WezhanException("DictionaryName is empty in language json file.");
+                throw new NopException("DictionaryName is empty in language json file.");
             }
             var dictionary = new LocalizationDictionary(new CultureInfo(cultureCode), jsonFile.DictionaryName);
             var dublicateNames = new List<string>();
@@ -64,7 +64,7 @@ namespace Nop.Services.Localization
             {
                 if (string.IsNullOrEmpty(item.Key))
                 {
-                    throw new WezhanException("The key is empty in given json string.");
+                    throw new NopException("The key is empty in given json string.");
                 }
                  
                 if (dictionary.ContainsKey(item.Key))
@@ -77,7 +77,7 @@ namespace Nop.Services.Localization
 
             if (dublicateNames.Count > 0)
             {
-                throw new WezhanException(
+                throw new NopException(
                     "A dictionary can not contain same key twice. There are some duplicated names: " +
                     String.Join(", ", dublicateNames));
             }

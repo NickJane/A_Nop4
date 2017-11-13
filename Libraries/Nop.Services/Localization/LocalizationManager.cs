@@ -6,7 +6,7 @@ using System.IO;
 
 namespace Nop.Services.Localization
 {
-    public class LocalizationManager
+    internal class LocalizationManager
     {
         /// <summary>
         /// 系统所有资源文件的集合
@@ -44,7 +44,7 @@ namespace Nop.Services.Localization
                     string key = string.Format(resourcefilleKeyFormat, dictionary.DictionaryName ,dictionary.CultureInfo.Name);
                     if (allResourceDictionary.ContainsKey(key))
                     {
-                        throw new WezhanException(dictionary.DictionaryName +
+                        throw new NopException(dictionary.DictionaryName +
                                                   " source contains more than one dictionary for the culture: " +
                                                   dictionary.CultureInfo.Name);
                     }
@@ -66,7 +66,10 @@ namespace Nop.Services.Localization
 
             if (allResourceDictionary.ContainsKey(resourcefilleKey)) {
                 var curr = allResourceDictionary[resourcefilleKey];
-                return curr[key];
+                if (args == null || args.Length == 0)
+                    return curr[key];
+                else
+                    return string.Format(curr[key], args);
             }
             return null;
         }
