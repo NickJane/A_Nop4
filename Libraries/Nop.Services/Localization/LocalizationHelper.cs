@@ -1,103 +1,68 @@
 ﻿using System.Globalization;
 using Nop.Core;
 using Nop.Core.Infrastructure;
-using Nop.Data;
-using Nop.Data.Domain.Localization;
+using Nop.Data; 
 
 namespace Nop.Services.Localization
 {
      public static class LocalizationHelper
     {
-        private static readonly ILocalizationManager LocalizationManager;
+        private static readonly LocalizationManager LocalizationManager;
 
         static LocalizationHelper()
         {
-            string directoryPath = CommonHelper.MapPath("/Localization/SourceFiles");
+            string directoryPath = CommonHelper.MapPath("/App_Data/Localization");
             LocalizationManager = new LocalizationManager(directoryPath);
         }
-        /// <summary>
-        /// Gets a localized string in specified language.
-        /// </summary>
-        /// <param name="sourceName">name of the source</param>
-        /// <param name="key">localized string key</param>
-        /// <param name="language">language name</param>
-        /// <returns></returns>
-        public static string GetString(string sourceName, string key, string language)
+        public static string GetString(LocalizationDictionaryName dictionaryName, string key, CultureInfo culture,params object[] args)
         {
-            return LocalizationManager.GetString(sourceName, key, language);
+            return LocalizationManager.GetString(dictionaryName, key, culture, args);
         }
         /// <summary>
-        /// Gets a localized string in specified language.
+        /// 
         /// </summary>
-        /// <param name="sourceName">name of the source</param>
-        /// <param name="key">localized string key</param>
-        /// <param name="language">language name</param>
-        /// <param name="args">string fromat args</param>
+        /// <param name="dictionaryName"></param>
+        /// <param name="key"></param>
+        /// <param name="cultureCode">en-us, zh-cn, etc...</param>
+        /// <param name="args"></param>
         /// <returns></returns>
-        public static string GetString(string sourceName, string key, string language, params object[] args)
+        public static string GetString(LocalizationDictionaryName dictionaryName, string key, string cultureCode, params object[] args)
         {
-
-            return LocalizationManager.GetString(sourceName, key, language, args);
-        }
-        /// <summary>
-        /// Gets a localized string in specified language.
-        /// </summary>
-        /// <param name="sourceName">name of the source</param>
-        /// <param name="key">localized string key</param>
-        /// <param name="culture">culture</param>
-        /// <returns></returns>
-        public static string GetString(string sourceName, string key, CultureInfo culture)
-        {
-            return LocalizationManager.GetString(sourceName, key, culture);
-        }
-        /// <summary>
-        /// Gets a localized string in specified language.
-        /// </summary>
-        /// <param name="sourceName">name of the source</param>
-        /// <param name="key">localized string key</param>
-        /// <param name="culture">culture</param>
-        /// <param name="args">string fromat args</param>
-        /// <returns></returns>
-        public static string GetString(string sourceName, string key, CultureInfo culture, params object[] args)
-        {
-            return LocalizationManager.GetString(sourceName, key, culture, args);
+            return LocalizationManager.GetString(dictionaryName, key, new CultureInfo(cultureCode), args);
         }
 
         public static string T(string key)
         {
-            return GetString(LocalizationResourceType.Admin.ToString(), key, EngineContext.Current.Resolve<IWorkContext>().AdminLanguage.LanguageCulture);
+            return GetString(LocalizationDictionaryName.Admin, key, 
+                EngineContext.Current.Resolve<IWorkContext>().RunTimeLanguage.LanguageCulture);
+        }
+
+        public static string T(string key, string languageCulture)
+        {
+            return GetString(LocalizationDictionaryName.Admin, key, languageCulture);
         }
 
         public static string T(string key, params object[] args)
         {
-            return GetString(LocalizationResourceType.Admin.ToString(), key, EngineContext.Current.Resolve<IWorkContext>().AdminLanguage.LanguageCulture, args);
+            return GetString(LocalizationDictionaryName.Admin, key, 
+                EngineContext.Current.Resolve<IWorkContext>().RunTimeLanguage.LanguageCulture, args);
         }
-
-        public static string TC(string key)
-        {
-            return GetString(LocalizationResourceType.Control.ToString(), key, EngineContext.Current.Resolve<IWorkContext>().AdminLanguage.LanguageCulture);
-        }
-        public static string TC(string key, params object[] args)
-        {
-            return GetString(LocalizationResourceType.Control.ToString(), key, EngineContext.Current.Resolve<IWorkContext>().AdminLanguage.LanguageCulture, args);
-        }
-        public static string TD(string key)
-        {
-            return GetString(LocalizationResourceType.Design.ToString(), key, EngineContext.Current.Resolve<IWorkContext>().AdminLanguage.LanguageCulture);
-        }
-        public static string TD(string key, params object[] args)
-        {
-            return GetString(LocalizationResourceType.Design.ToString(), key, EngineContext.Current.Resolve<IWorkContext>().AdminLanguage.LanguageCulture, args);
-        }
+        
 
         public static string L(string key)
         {
-            return GetString(LocalizationResourceType.Brower.ToString(), key, EngineContext.Current.Resolve<IWorkContext>().RunTimeLanguage.LanguageCulture);
+            return GetString(LocalizationDictionaryName.Web, key, 
+                EngineContext.Current.Resolve<IWorkContext>().RunTimeLanguage.LanguageCulture);
+        }
+        public static string L(string key,string languageCulture)
+        {
+            return GetString(LocalizationDictionaryName.Web, key, languageCulture);
         }
 
         public static string L(string key, params object[] args)
         {
-            return GetString(LocalizationResourceType.Brower.ToString(), key, EngineContext.Current.Resolve<IWorkContext>().RunTimeLanguage.LanguageCulture, args);
+            return GetString(LocalizationDictionaryName.Web, key, 
+                EngineContext.Current.Resolve<IWorkContext>().RunTimeLanguage.LanguageCulture, args);
         }
     }
 }

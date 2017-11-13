@@ -70,6 +70,7 @@
     <None Include="ReadME.md" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Domain\Localization\" />
     <Folder Include="Mapping\" />
   </ItemGroup>
   <ItemGroup>

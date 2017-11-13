@@ -1,0 +1,8 @@
+﻿{
+  "culture": "zh-CN",
+  "dictionaryName": "Web",
+  "texts": {
+    "SystemName": "这里是前台系统",
+    "Age": "年龄{0}"
+  }
+}
