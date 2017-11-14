@@ -11,7 +11,7 @@ namespace Nop.Services
         void Insert(TEntity entity);
         void Update(TEntity entity);
         void Delete(TEntity entity);
-        TEntity FindBy(Tkey Id);
+        //TEntity FindBy(Tkey Id);
         TEntity FindBy(Expression<Func<TEntity, bool>> expression);
         int Count(Expression<Func<TEntity, bool>> expression);
         IQueryable<TEntity> Table { get; }

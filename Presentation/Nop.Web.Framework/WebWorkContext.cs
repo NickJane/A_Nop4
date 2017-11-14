@@ -5,6 +5,8 @@ using Nop.Services;
 using Nop.Services.Customer;
 using Nop.Data.Domain.Site;
 using Nop.Core.Fakes;
+using Nop.Core.Infrastructure;
+using Nop.Data.Domain.Localization;
 
 namespace Nop.Web.Framework
 {
@@ -15,10 +17,18 @@ namespace Nop.Web.Framework
         private readonly HttpContextBase _httpContext; 
         private DeviceMode _deviceType; 
         private CustomerInfo _cachedCustomer;
+        private IBaseService<Data.Domain.Localization.Language, int> _languageService;
+        private IBaseService<Data.Domain.Localization.LanguageOfSite, int> _languageOfSiteService;
+        private IBaseService<Data.Domain.Site.SiteDomain, int> _siteDomainService;
 
         public WebWorkContext(HttpContextBase httpContext 
             )
         {
+
+            _languageService = Nop.Core.Infrastructure.EngineContext.Current.Resolve<IBaseService<Language, int>>();
+            _languageOfSiteService = Nop.Core.Infrastructure.EngineContext.Current.Resolve<IBaseService<LanguageOfSite, int>>();
+            _siteDomainService = Nop.Core.Infrastructure.EngineContext.Current.Resolve<IBaseService<SiteDomain, int>>();
+
             _httpContext = httpContext; 
             _deviceType = DeviceMode.PC; 
         }
@@ -57,17 +67,13 @@ namespace Nop.Web.Framework
         #endregion
 
         #region 工具方法 IsMobile, SaveLanguageToCookie, GetLanguage
-        private string GetCookieName(string cacheKey)
-        {
-            return "yibu_" + cacheKey;
-        }
 
         private void SaveLanguageToCookie(Language language, string cookieName)
         {
             var cookie = new HttpCookie(cookieName);
             cookie.HttpOnly = true;
             cookie.Path = "/";
-            cookie.Value = language.LanguageCulture;
+            cookie.Value = language.LanguageCultrue;
             int cookieExpires = 24 * 365; //TODO make configurable
             cookie.Expires = DateTime.Now.AddHours(cookieExpires);
             if (_httpContext.Request.Cookies[cookieName] != null)
@@ -79,9 +85,7 @@ namespace Nop.Web.Framework
                 _httpContext.Response.Cookies[cookieName].Value = cookie.Value;
             }
             else
-            {
-                //_httpContext.Request.Cookies.Remove("yibu_deviceMode");
-                //_httpContext.Response.Cookies.Remove("yibu_deviceMode");
+            { 
                 _httpContext.Response.Cookies.Add(cookie);
             }
 
@@ -94,60 +98,58 @@ namespace Nop.Web.Framework
         /// 3 找客户当前浏览器的语言
         /// 4 返回中文
         /// </summary>
-        /// <param name="cacheKey"></param>
+        /// <param name="languageCookieName"></param>
         /// <returns></returns>
-        private Language GetLanguage(string cacheKey)
+        private Language GetLanguage(string languageCookieName)
         {
             if (_httpContext == null || _httpContext.Request == null || _httpContext is FakeHttpContext)
             {
-                //return _languageService.GetAll().FirstOrDefault();
+                return _languageService.Table.FirstOrDefault();
             }
-            if (_httpContext.Items[cacheKey] != null)
+            if (_httpContext.Items[languageCookieName] != null)
             {
-                return (Language)_httpContext.Items[cacheKey];//缓存中没有, 就取cookie, 并写入缓存
+                return (Language)_httpContext.Items[languageCookieName];//缓存中没有, 就取cookie, 并写入缓存
             }
-
-            string cookieName = "yibu_" + cacheKey;
-            HttpCookie cookie = _httpContext.Request.Cookies[cookieName];
+             
+            HttpCookie cookie = _httpContext.Request.Cookies[languageCookieName];
             string languageName;
             //从Cookie中找到了
             if (cookie != null)
             {
                 languageName = cookie.Value.ToLower();
-                Language language = null;// _languageService.GetAll().Where(item => item.LanguageCulture.ToLower() == languageName).FirstOrDefault();
-                _httpContext.Items[cacheKey] = language;
+                Language language =  _languageService.Table.Where(item => item.LanguageCultrue.ToLower() == languageName).FirstOrDefault();
+                _httpContext.Items[languageCookieName] = language;
                 return language;
             }
             else 
             {
                 //取客户设置的主语言
-                //SiteLanguage siteLanguage = _siteLanguageService.GetPrimaryLanguage(CurrentStore.SiteId);
-                //if (siteLanguage != null)
-                //{
-                //    Language language = _languageService.FindBy(siteLanguage.LanguageId);
-                //    _httpContext.Items[cacheKey] = language;
-                //    SaveLanguageToCookie(language, cookieName);
-                //    return language;
-                //}
-                //else
-                //{
-                //    languageName = "zh-CN";
-                //    //解决远程请求UserLanguages为null的问题
-                //    if (_httpContext.Request.UserLanguages != null)
-                //    {
-                //        languageName = _httpContext.Request.UserLanguages.Length > 0 ? _httpContext.Request.UserLanguages[0] : "";
-                //    }
-                //    languageName = languageName.ToLower();
-                //    Language language = _languageService.GetAll().Where(item => item.LanguageCulture.ToLower() == languageName).FirstOrDefault();
-                //    if (language == null)
-                //    {
-                //        language = _languageService.GetAll().First();
-                //    }
-                //    _httpContext.Items[cacheKey] = language;
-                //    SaveLanguageToCookie(language, cookieName);
-                //    return language;
-                //}
-                return null;
+                var sitePrimaryLanguage = _languageOfSiteService.Table.Where(x => x.IsPrimary && x.SiteId == CurrentSiteId).FirstOrDefault();
+                if (sitePrimaryLanguage != null)
+                {
+                    Language language = _languageService.FindBy(x => x.Id == sitePrimaryLanguage.LanguageId);
+                    _httpContext.Items[languageCookieName] = language;
+                    SaveLanguageToCookie(language, languageCookieName);
+                    return language;
+                }
+                else
+                {//主语言也没有
+                    languageName = "zh-CN";
+                    //解决远程请求UserLanguages为null的问题
+                    if (_httpContext.Request.UserLanguages != null)
+                    {
+                        languageName = _httpContext.Request.UserLanguages.Length > 0 ? _httpContext.Request.UserLanguages[0] : "";
+                    }
+                    languageName = languageName.ToLower();
+                    Language language = _languageService.Table.Where(item => item.LanguageCultrue.ToLower() == languageName).FirstOrDefault();
+                    if (language == null)
+                    {
+                        language = _languageService.Table.First();
+                    }
+                    _httpContext.Items[languageCookieName] = language;
+                    SaveLanguageToCookie(language, languageCookieName);
+                    return language;
+                } 
             }
         }
 
@@ -265,13 +267,38 @@ namespace Nop.Web.Framework
         }
         
 
+        public int CurrentSiteId { get {
+                var host= _httpContext.Request.Url.Host;
+                var cacheKey = host + "_siteId";
+                if (_httpContext.Items[cacheKey] != null)
+                    return (int)_httpContext.Items[cacheKey];
+
+                var domain = _siteDomainService.Table.FirstOrDefault(x => x.Domain == host);
+                if (domain == null)
+                    throw new NopException(string.Format("没有找到{0}站点", host));
+
+                _httpContext.Items[cacheKey] = domain.SiteId;
+                return domain.SiteId;
+            } 
+        }
+
+        /// <summary>
+        /// 网站运行时候的主语言
+        /// </summary>
         Language IWorkContext.RunTimeLanguage
         {
             get
             {
-
+                return GetLanguage("runtime_language");
             }
-            set => throw new NotImplementedException();
+            set { 
+                if (_httpContext != null && _httpContext.Response != null)
+                {
+                    //将语言放入到请求的缓存中
+                    _httpContext.Items["runtime_language"] = value;
+                    SaveLanguageToCookie(value, "runtime_language"); 
+                }
+            }
         }
         DeviceMode IWorkContext.RunTimeDeviceMode { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }

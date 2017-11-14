@@ -65,9 +65,10 @@ namespace Nop.Web.Framework
             builder.RegisterControllers(typeFinder.GetAssemblies().ToArray());
 
             //data layer  数据库对象注入
-            builder.Register<IDbContext>(c => new NopObjectContext(System.Configuration.ConfigurationManager.ConnectionStrings["dbsrc"].ConnectionString)).InstancePerLifetimeScope();
+            builder.Register<IDbContext>(c => new NopObjectContext(System.Configuration.ConfigurationManager.AppSettings["dbstr"])).InstancePerLifetimeScope();
             //泛型注入
             builder.RegisterGeneric(typeof(EfRepository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope(); 
+            builder.RegisterGeneric(typeof(BaseService<,>)).As(typeof(IBaseService<,>)).InstancePerLifetimeScope();
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
 
             //插件注入

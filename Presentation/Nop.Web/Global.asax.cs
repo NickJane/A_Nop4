@@ -9,6 +9,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Nop.Core.Infrastructure;
 using Nop.Web.Framework.ViewEngines;
+using System.Data.Entity;
 
 namespace Nop.Web
 {
@@ -16,7 +17,11 @@ namespace Nop.Web
     {
         protected void Application_Start()
         {
-            //1. 初始化Autofac的依赖注入管理
+            //ef和数据库的映射有很多种, 一：数据库不存在时重新创建数据库 二：每次启动应用程序时创建数据库 三：模型更改时重新创建数据库
+            //这里我们选择用户自己创建数据库  
+            Database.SetInitializer<Nop.Data.NopObjectContext>(null);
+
+            //初始化Autofac的依赖注入管理
             EngineContext.Initialize(false);
 
             AreaRegistration.RegisterAllAreas();

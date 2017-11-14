@@ -41,12 +41,12 @@ namespace Nop.Web.Framework.ViewEngines.Razor
                                          if (args == null || args.Length == 0)
                                          {
                                              resFormat = LocalizationHelper.GetString(LocalizationDictionaryName.Admin, format,
-                                                 "zh-cn");
+                                                 _workContext.RunTimeLanguage.LanguageCultrue);
                                          }
                                          else
                                          {
                                              resFormat = LocalizationHelper.GetString(LocalizationDictionaryName.Admin, format,
-                                                 "zh-cn", args);
+                                                 _workContext.RunTimeLanguage.LanguageCultrue, args);
                                          }
                                          if (string.IsNullOrEmpty(resFormat))
                                          {
@@ -74,12 +74,12 @@ namespace Nop.Web.Framework.ViewEngines.Razor
                         if (args == null || args.Length == 0)
                         {
                             resFormat = LocalizationHelper.GetString(LocalizationDictionaryName.Web, format,
-                                "zh-cn");
+                                _workContext.RunTimeLanguage.LanguageCultrue);
                         }
                         else
                         {
                             resFormat = LocalizationHelper.GetString(LocalizationDictionaryName.Web, format,
-                                "zh-cn", args);
+                                _workContext.RunTimeLanguage.LanguageCultrue, args);
                         }
                         if (string.IsNullOrEmpty(resFormat))
                         {
