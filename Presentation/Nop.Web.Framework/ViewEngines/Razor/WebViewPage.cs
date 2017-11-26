@@ -8,7 +8,7 @@ using Nop.Services.Localization;
 namespace Nop.Web.Framework.ViewEngines.Razor
 {
     /// <summary>
-    /// Web view page
+    /// 可以在cshtml页面中使用自定义的方法和属性.
     /// </summary>
     /// <typeparam name="TModel">Model</typeparam>
     public abstract class WebViewPage<TModel> : System.Web.Mvc.WebViewPage<TModel>
@@ -117,24 +117,6 @@ namespace Nop.Web.Framework.ViewEngines.Razor
                 base.Layout = value;
             }
         }
-
-        /// <summary>
-        /// Return a value indicating whether the working language and theme support RTL (right-to-left)
-        /// </summary>
-        /// <returns></returns>
-        //public bool ShouldUseRtlTheme()
-        //{
-        //    var workContext = EngineContext.Current.Resolve<IWorkContext>();
-        //    var supportRtl = workContext.WorkingLanguage.Rtl;
-        //    if (supportRtl)
-        //    {
-        //        //ensure that the active theme also supports it
-        //        var themeProvider = EngineContext.Current.Resolve<IThemeProvider>();
-        //        var themeContext = EngineContext.Current.Resolve<IThemeContext>();
-        //        supportRtl = themeProvider.GetThemeConfiguration(themeContext.WorkingThemeName).SupportRtl;
-        //    }
-        //    return supportRtl;
-        //}
 
         public IWorkContext WorkContext
         {

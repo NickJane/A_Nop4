@@ -15,6 +15,8 @@ namespace Nop.Services.Localization
         public CultureInfo CultureInfo { get; private set; }
         public string DictionaryName { get; private set; }
 
+        private readonly Dictionary<string, LocalizedString> _dictionary;
+
         /// <inheritdoc/>
         public virtual string this[string name]
         {
@@ -29,7 +31,6 @@ namespace Nop.Services.Localization
             }
         }
 
-        private readonly Dictionary<string, LocalizedString> _dictionary;
 
         /// <summary>
         /// Creates a new <see cref="LocalizationDictionary"/> object.
