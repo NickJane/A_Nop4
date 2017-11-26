@@ -34,7 +34,7 @@ namespace Nop.Services.Localization
         public static string T(string key)
         {
             return GetString(LocalizationDictionaryName.Admin, key, 
-                EngineContext.Current.Resolve<IWorkContext>().RunTimeLanguage.LanguageCulture);
+                EngineContext.Current.Resolve<IWorkContext>().RunTimeLanguage.LanguageCultrue);
         }
 
         public static string T(string key, string languageCulture)
@@ -45,14 +45,14 @@ namespace Nop.Services.Localization
         public static string T(string key, params object[] args)
         {
             return GetString(LocalizationDictionaryName.Admin, key, 
-                EngineContext.Current.Resolve<IWorkContext>().RunTimeLanguage.LanguageCulture, args);
+                EngineContext.Current.Resolve<IWorkContext>().RunTimeLanguage.LanguageCultrue, args);
         }
         
 
         public static string L(string key)
         {
             return GetString(LocalizationDictionaryName.Web, key, 
-                EngineContext.Current.Resolve<IWorkContext>().RunTimeLanguage.LanguageCulture);
+                EngineContext.Current.Resolve<IWorkContext>().RunTimeLanguage.LanguageCultrue);
         }
         public static string L(string key,string languageCulture)
         {
@@ -62,7 +62,7 @@ namespace Nop.Services.Localization
         public static string L(string key, params object[] args)
         {
             return GetString(LocalizationDictionaryName.Web, key, 
-                EngineContext.Current.Resolve<IWorkContext>().RunTimeLanguage.LanguageCulture, args);
+                EngineContext.Current.Resolve<IWorkContext>().RunTimeLanguage.LanguageCultrue, args);
         }
     }
 }

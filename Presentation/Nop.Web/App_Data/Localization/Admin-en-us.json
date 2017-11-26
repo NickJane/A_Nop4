@@ -1,0 +1,8 @@
+﻿{
+  "culture": "en-US",
+  "dictionaryName": "Admin",
+  "texts": {
+    "SystemName": "this is adminitrator panel",
+    "CustomerName": "username is {0}"
+  }
+}

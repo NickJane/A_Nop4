@@ -1,4 +1,5 @@
-﻿ 
+﻿
+using Nop.Data.Domain.Localization;
 using Nop.Data.Domain.Site;
 using Nop.Services.Customer; 
 
@@ -21,7 +22,11 @@ namespace Nop.Services
         /// 运行时设备环境(预览和发布状态)
         /// </summary>
         DeviceMode RunTimeDeviceMode { get; set; }
+
+        int CurrentSiteId { get;  }
     }
+
+
 
     public enum DeviceMode
     {

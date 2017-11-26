@@ -1,0 +1,8 @@
+﻿{
+  "culture": "en-US",
+  "dictionaryName": "Web",
+  "texts": {
+    "SystemName": "this is front page ",
+    "Age": "age is {0}"
+  }
+}
