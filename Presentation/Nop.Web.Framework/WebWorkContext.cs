@@ -267,7 +267,8 @@ namespace Nop.Web.Framework
         }
         
 
-        public int CurrentSiteId { get {
+        public int CurrentSiteId {
+            get {
                 var host= _httpContext.Request.Url.Host;
                 var cacheKey = host + "_siteId";
                 if (_httpContext.Items[cacheKey] != null)
@@ -291,7 +292,7 @@ namespace Nop.Web.Framework
             {
                 return GetLanguage("runtime_language");
             }
-            set { 
+            set { //用户可以在网站管理强制改变网站的主语言
                 if (_httpContext != null && _httpContext.Response != null)
                 {
                     //将语言放入到请求的缓存中

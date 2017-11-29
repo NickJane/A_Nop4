@@ -66,6 +66,7 @@
     <Compile Include="IWorkContext.cs" />
     <Compile Include="Localization\enum\LocalizationResourceType.cs" />
     <Compile Include="Localization\ILocalizationDictionary.cs" />
+    <Compile Include="Localization\ILocalizeProperty.cs" />
     <Compile Include="Localization\JsonLocalizationDictionaryHelper.cs" />
     <Compile Include="Localization\LocalizationDictionary.cs" />
     <Compile Include="Localization\LocalizationHelper.cs" />

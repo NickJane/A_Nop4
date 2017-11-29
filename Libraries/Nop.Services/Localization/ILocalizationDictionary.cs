@@ -9,6 +9,7 @@ namespace Nop.Services.Localization
 {
     /// <summary>
     /// 每种语言的资源文件集合
+    /// 设计小技巧, 扩展Dictionary
     /// </summary>
     public interface ILocalizationDictionary
     {
