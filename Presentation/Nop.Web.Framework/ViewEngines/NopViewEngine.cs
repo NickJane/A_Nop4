@@ -40,8 +40,8 @@ namespace Nop.Web.Framework.ViewEngines
                                             "~/Designer/Views/Shared/{0}.cshtml",
 
                                             //Admin
-                                            "~/Administration/Views/{1}/{0}.cshtml",
-                                            "~/Administration/Views/Shared/{0}.cshtml",
+                                            "~/Admin/Views/{1}/{0}.cshtml",
+                                            "~/Admin/Views/Shared/{0}.cshtml",
 
                                             //WebAPI
                                             "~/WebAPI/Views/{1}/{0}.cshtml",
@@ -59,8 +59,8 @@ namespace Nop.Web.Framework.ViewEngines
                                             "~/Designer/Views/Shared/{0}.cshtml",
 
                                             //Admin
-                                            "~/Administration/Views/{1}/{0}.cshtml",
-                                            "~/Administration/Views/Shared/{0}.cshtml",
+                                            "~/Admin/Views/{1}/{0}.cshtml",
+                                            "~/Admin/Views/Shared/{0}.cshtml",
 
                                              //WebAPI
                                             "~/WebAPI/Views/{1}/{0}.cshtml",
@@ -78,8 +78,8 @@ namespace Nop.Web.Framework.ViewEngines
                                             "~/Designer/Views/Shared/{0}.cshtml",
 
                                                 //Admin
-                                                "~/Administration/Views/{1}/{0}.cshtml",
-                                                "~/Administration/Views/Shared/{0}.cshtml",
+                                                "~/Admin/Views/{1}/{0}.cshtml",
+                                                "~/Admin/Views/Shared/{0}.cshtml",
 
                                                  //WebAPI
                                             "~/WebAPI/Views/{1}/{0}.cshtml",

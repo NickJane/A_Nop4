@@ -127,8 +127,8 @@ namespace Nop.Web.Framework.ViewEngines
             if (!string.IsNullOrEmpty(areaName) && areaName.Equals("admin", StringComparison.InvariantCultureIgnoreCase))
             {
                 var newLocations = areaLocations.ToList();
-                newLocations.Insert(0, "~/Administration/Views/{1}/{0}.cshtml");
-                newLocations.Insert(0, "~/Administration/Views/Shared/{0}.cshtml");
+                newLocations.Insert(0, "~/Admin/Views/{1}/{0}.cshtml");
+                newLocations.Insert(0, "~/Admin/Views/Shared/{0}.cshtml");
                 areaLocations = newLocations.ToArray();
             }
             if (!string.IsNullOrEmpty(areaName) && areaName.Equals("designer", StringComparison.InvariantCultureIgnoreCase))
