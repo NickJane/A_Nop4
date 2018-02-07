@@ -17,6 +17,7 @@ namespace Nop.Web
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                , namespaces:new string[] { "Nop.Web.Controllers" }
             );
         }
     }
