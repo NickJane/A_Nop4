@@ -145,6 +145,13 @@ namespace Nop.Web.Framework.ViewEngines
                 newLocations.Insert(0, "~/WebAPI/Views/Shared/{0}.cshtml");
                 areaLocations = newLocations.ToArray();
             }
+            if (!string.IsNullOrEmpty(areaName) && areaName.Equals("test", StringComparison.InvariantCultureIgnoreCase))
+            {
+                var newLocations = areaLocations.ToList();
+                newLocations.Insert(0, "~/Test/Views/{1}/{0}.cshtml");
+                newLocations.Insert(0, "~/Test/Views/Shared/{0}.cshtml");
+                areaLocations = newLocations.ToArray();
+            }
 
             bool usingAreas = !String.IsNullOrEmpty(areaName);
             List<ViewLocation> viewLocations = GetViewLocations(locations, (usingAreas) ? areaLocations : null);

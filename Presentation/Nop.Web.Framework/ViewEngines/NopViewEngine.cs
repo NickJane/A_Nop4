@@ -3,6 +3,13 @@ using System.Web.Mvc;
 
 namespace Nop.Web.Framework.ViewEngines
 {
+    /*
+     area新增二个步骤
+     1: 在这里添加寻路路径
+     2: NopVirtualPathProviderViewEngine 的findView增加area判断.
+         */
+
+
     public class NopViewEngine : NopVirtualPathProviderViewEngine
     {
         public NopViewEngine()
@@ -46,6 +53,10 @@ namespace Nop.Web.Framework.ViewEngines
                                             //WebAPI
                                             "~/WebAPI/Views/{1}/{0}.cshtml",
                                             "~/WebAPI/Views/Shared/{0}.cshtml",
+
+                                            //Test
+                                            "~/Test/Views/{1}/{0}.cshtml",
+                                            "~/Test/Views/Shared/{0}.cshtml",
                                       };
 
             MasterLocationFormats = new[]
@@ -65,6 +76,10 @@ namespace Nop.Web.Framework.ViewEngines
                                              //WebAPI
                                             "~/WebAPI/Views/{1}/{0}.cshtml",
                                             "~/WebAPI/Views/Shared/{0}.cshtml",
+
+                                            //Test
+                                            "~/Test/Views/{1}/{0}.cshtml",
+                                            "~/Test/Views/Shared/{0}.cshtml",
                                         };
 
             PartialViewLocationFormats = new[]
@@ -84,6 +99,10 @@ namespace Nop.Web.Framework.ViewEngines
                                                  //WebAPI
                                             "~/WebAPI/Views/{1}/{0}.cshtml",
                                             "~/WebAPI/Views/Shared/{0}.cshtml",
+
+                                            //Test
+                                            "~/Test/Views/{1}/{0}.cshtml",
+                                            "~/Test/Views/Shared/{0}.cshtml",
                                              };
 
             FileExtensions = new[] { "cshtml" };
