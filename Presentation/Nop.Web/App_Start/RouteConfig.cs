@@ -13,6 +13,9 @@ namespace Nop.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            //这个必须在下面默认的路由之前注册. 否则会报错
+            Nop.Web.Framework.Routes.RoutePublisher.RegisterRoutes(routes);
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
