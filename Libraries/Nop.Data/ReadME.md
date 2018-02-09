@@ -36,3 +36,11 @@
 	UnitOfWork依赖于IDbContext, 在初始化的时候会从Autofac中获得当前生命周期中的数据库访问对象(IDbContext的设置是InstancePerLifetimeScope)
 	BeginTransation() 开启一个事务并放回一个事务对象. _transacton = _context.Database.BeginTransaction();
 	CommitTransation() 提交事务.
+	Global.asax.cs中需要增加下面代码保证强健性
+	protected void Application_EndRequest(object sender, EventArgs e)
+        {  
+            if (UnitOfWorkFactory.HasContextOpen())
+            {
+                UnitOfWorkFactory.CurrentUnitOfWork.Dispose();
+            }
+        }

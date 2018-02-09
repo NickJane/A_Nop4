@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Nop.Services.Statistic;
+using Nop.Core.Infrastructure;
 
 namespace Nop.Web.Controllers
 {
@@ -54,5 +55,16 @@ namespace Nop.Web.Controllers
             return View();
         }
 
+
+        public ActionResult TestUnitOfWork() {
+            Nop.Data.UnitOfWorkFactory.CurrentUnitOfWork.BeginTransaction();
+            Nop.Data.UnitOfWorkFactory.CurrentUnitOfWork.CommitTransaction();
+            Nop.Data.UnitOfWorkFactory.CurrentUnitOfWork.BeginTransaction();
+            Nop.Data.UnitOfWorkFactory.CurrentUnitOfWork.CommitTransaction();
+
+
+
+            return Content("ssss");
+        }
     }
 }

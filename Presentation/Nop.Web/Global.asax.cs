@@ -10,6 +10,7 @@ using System.Web.Routing;
 using Nop.Core.Infrastructure;
 using Nop.Web.Framework.ViewEngines;
 using System.Data.Entity;
+using Nop.Data;
 
 namespace Nop.Web
 {
@@ -80,6 +81,15 @@ namespace Nop.Web
 
                 //    }
                 //}
+            }
+        }
+
+
+        protected void Application_EndRequest(object sender, EventArgs e)
+        {
+            if (UnitOfWorkFactory.HasContextOpen())
+            {
+                UnitOfWorkFactory.CurrentUnitOfWork.Dispose();
             }
         }
     }
