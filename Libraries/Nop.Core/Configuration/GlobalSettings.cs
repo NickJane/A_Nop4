@@ -10,7 +10,7 @@
         /// <summary>
         /// OSS路径开关，值为on/off，为on的时候，代表js、css等文件从OSS中获取
         /// </summary>
-        private string OSSPathSwitch { get; set; }
+        public string SwtichResourceOSSPath { get; set; }
 
        
     }

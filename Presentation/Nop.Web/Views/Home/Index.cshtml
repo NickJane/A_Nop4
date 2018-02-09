@@ -1,5 +1,9 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+
+    Html.AppendCss("/Content/bootstrap-theme.css", Nop.Web.Framework.UI.ResourceLocation.Head);
+
+    Html.AddScript("/Scripts/respond.js", Nop.Web.Framework.UI.ResourceLocation.Foot); 
 }
 
 <div class="jumbotron">

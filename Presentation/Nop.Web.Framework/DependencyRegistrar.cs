@@ -90,7 +90,9 @@ namespace Nop.Web.Framework
                 .InstancePerLifetimeScope();
             builder.RegisterSource(new SettingsSource());
 
-             
+
+            builder.RegisterType<Nop.Web.Framework.UI.PageHeadBuilder>().As<Nop.Web.Framework.UI.IPageHeadBuilder>().InstancePerLifetimeScope();
+
         }
 
         /// <summary>

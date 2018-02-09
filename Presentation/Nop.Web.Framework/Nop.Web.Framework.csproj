@@ -96,6 +96,11 @@
     <Compile Include="Routes\GenericUrlRouteProvider.cs" />
     <Compile Include="Routes\IRouteProvider.cs" />
     <Compile Include="Routes\RoutePublisher.cs" />
+    <Compile Include="UI\IPageHeadBuilder.cs" />
+    <Compile Include="UI\LayoutExtensions.cs" />
+    <Compile Include="UI\PageHeadBuilder.cs" />
+    <Compile Include="UI\ResourceLocation.cs" />
+    <Compile Include="UI\ResourceVersionManager.cs" />
     <Compile Include="ViewEngines\Razor\WebViewPage.cs" />
     <Compile Include="ViewEngines\NopViewEngine.cs" />
     <Compile Include="ViewEngines\NopVirtualPathProviderViewEngine.cs" />
@@ -119,6 +124,8 @@
       <Name>Nop.Services</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Mvc\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
